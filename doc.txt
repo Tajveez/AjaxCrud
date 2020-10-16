@@ -1,0 +1,109 @@
+> Only Creating and Read functions are working but when create is finished the table doesnot automatically refreshes and PDO insert method or query also didn't worked
+-------------------------------------------------------------------------------------------------
+solution:
+-------------------------------------------------------------------------------------------------
+<button class="refresher">Refresh table</button>
+<table id="table-to-refresh">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $(document).on('click', '.refresher', function () {
+        $.ajax({
+            url: 'ajax.php',
+            method: get,
+            dataType: 'json',
+            success: function(response) {
+                $('#table-to-refresh').html(response);
+            }
+        });
+    });
+});
+</script>
+-------------------------------------------------------------------------------------------------
+for reloading the whole page
+$('#something').click(function() {
+    location.reload();
+});
+-------------------------------------------------------------------------------------------------
+
+> have implemented checkbox delete method but its not working because i cannot get multiple checkbox values in JS and then call app method to be deleted
+update: single delete is working via jquery's class selector, try to do all of Ajax crud with Jquery and ajax
+-------------------------------------------------------------------------------------------------
+solution:
+-------------------------------------------------------------------------------------------------
+var checkboxes = document.getElementsByName('location[]');
+var vals = "";
+for (var i=0, n=checkboxes.length;i<n;i++) 
+{
+    if (checkboxes[i].checked) 
+    {
+        vals += ","+checkboxes[i].value;
+    }
+}
+if (vals) vals = vals.substring(1);
+-------------------------------------------------------------------------------------------------
+var all_location_id = document.querySelectorAll('input[name="location[]"]:checked');
+
+var aIds = [];
+
+for(var x = 0, l = all_location_id.length; x < l;  x++)
+{
+    aIds.push(all_location_id[x].value);
+}
+
+var str = aIds.join(', ');
+
+console.log(str);
+-------------------------------------------------------------------------------------------------
+
+> Ajax pagination, searching and sorting not implemented yet
+> also cannot get value of html elements that are inserted dynamically by using javascript
+-------------------------------------------------------------------------------------------------
+solution:
+-------------------------------------------------------------------------------------------------
+using appendChild or insertBefore
+-------------------------------------------------------------------------------------------------
+$(document).ready(function(){
+   
+    $(document).on('click', 'p', function(){
+        console.log("clicked");
+    });
+    
+    var elem = document.createElement('p');
+    elem.innerHTML = 'testing, click me';
+    $('#cont').append(elem);
+    
+});
+-------------------------------------------------------------------------------------------------
+function makeDiv() {
+    var quizDiv=document.createElement("div");
+    document.body.appendChild(quizDiv);
+    return quizDiv;
+}
+function createInputBox(quizDiv,boxId) {
+     // var quizDiv = document.getElementById("quizDiv");
+     quizDiv.innerHTML = "<input type='text' id='" + boxId + "'>";
+ }
+var quizDiv=makeDiv();
+-------------------------------------------------------------------------------------------------
+var tabListItems = document.getElementById('tabs').children;
+for ( var i = 0; i < tabListItems.length; i++ ) {
+    if ( tabListItems[i].tagName == "LI" ) {
+        var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
+        var id = getHash( tabLink.getAttribute('href') );
+        tabLinks[id] = tabLink;
+        contentDivs[id] = document.getElementById( id );
+    }
+}
+-------------------------------------------------------------------------------------------------
